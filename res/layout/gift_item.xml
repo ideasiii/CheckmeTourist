@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/list_item_option"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/ImageViewGift"
+        android:layout_width="178dp"
+        android:layout_height="105dp"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="@string/content_description"
+        android:focusable="false"
+        android:scaleType="fitXY"
+        android:src="@drawable/downloadwait" />
+
+    <TextView
+        android:id="@+id/TextViewGiftInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:focusable="false"
+        android:singleLine="true"
+        android:text="@string/content_description"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/Gray"
+        android:textSize="12sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/TextViewGiftPoint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="5dp"
+            android:focusable="false"
+            android:text="@string/content_description"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#46d0f3"
+            android:textSize="15sp" />
+
+        <ImageButton
+            android:id="@+id/ImageButtonLove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="5dp"
+            android:background="#00000000"
+            android:contentDescription="@string/content_description"
+            android:focusable="false"
+            android:src="@drawable/item_love_g" />
+    </RelativeLayout>
+
+</LinearLayout>

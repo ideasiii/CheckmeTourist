@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <SurfaceView
+        android:id="@+id/preview_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/imgSightBlock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/content_description"
+            android:src="@drawable/a_sight_block" />
+
+        <LinearLayout
+            android:id="@+id/layoutSight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@id/imgSightBlock"
+            android:layout_alignStart="@id/imgSightBlock"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:visibility="invisible"
+            android:weightSum="1" >
+
+            <ImageView
+                android:id="@+id/imgSightLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/content_description"
+                android:src="@drawable/a_sight" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:id="@+id/labGap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.2"
+                android:text="        " />
+
+            <ImageView
+                android:id="@+id/imgSightRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/content_description"
+                android:src="@drawable/a_sight" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imgSightText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/imgSightBlock"
+            android:layout_alignEnd="@id/imgSightBlock"
+            android:layout_alignStart="@id/imgSightBlock"
+            android:layout_marginBottom="50dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/content_description"
+            android:src="@drawable/a_sight_text" />
+    </RelativeLayout>
+
+</FrameLayout>

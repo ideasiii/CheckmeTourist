@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Black_Gray"
+    android:orientation="vertical" >
+
+    <!-- AD Banner -->
+
+    <ImageView
+        android:id="@+id/imageViewGift"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:contentDescription="@string/content_description"
+        android:scaleType="fitXY"
+        android:src="@drawable/item_banner" />
+
+    <GridView
+        android:id="@+id/gridViewGift"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/background_option"
+        android:contentDescription="@string/content_description"
+        android:gravity="center"
+        android:horizontalSpacing="2dp"
+        android:numColumns="2"
+        android:padding="2dp"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="2dp" >
+
+    </GridView>
+
+</LinearLayout>
