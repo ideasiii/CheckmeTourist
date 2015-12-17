@@ -1,5 +1,7 @@
 package com.openfile.checkmetourist;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 import android.app.Activity;
@@ -27,15 +29,12 @@ public class AppSensorHandler extends BaseHandler
 			public void showLinkServerMessageResult(int result, int from, String message)
 			{
 				// TODO Auto-generated method stub
-				Logs.showTrace("result :"+ String.valueOf(result) + "from :" +String.valueOf(from)+" message"+message);
-				
+				Logs.showTrace("result :"+ String.valueOf(result) + "from :" +String.valueOf(from)+" message: "+message);				
 			}
-
-			
 
 		});
 
-		appSensor.startTracker("Test001", "1001512501", "tester", "tester@hotmail.com");
+		appSensor.startTracker("1349333576093", "1001512501", "tester", "tester@hotmail.com");
 	}
 
 	@Override
@@ -54,8 +53,12 @@ public class AppSensorHandler extends BaseHandler
 		parm.put("PAGE", page);
 		parm.put("PRODUCTION", production);
 		parm.put("PRICE", price);
+		parm.put("DATE",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+		Logs.showTrace("track:" + type + " " + source_from + " " + page + " " + production + " " + price+
+				" "+parm.get("DATE"));
 		appSensor.track(parm);
-		Logs.showTrace("track:" + type + " " + source_from + " " + page + " " + production + " " + price);
+		
+		
 	}
 
 }
