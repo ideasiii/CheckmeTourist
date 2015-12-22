@@ -6,23 +6,23 @@ import java.util.HashMap;
 
 import android.app.Activity;
 import android.os.Handler;
-import app.sensor.AppSensor;
-import app.sensor.AppSensor.TransferMessage;
 
+import sdk.ideas.tracker.Tracker;
+import sdk.ideas.tracker.Tracker.TransferMessage;
 public class AppSensorHandler extends BaseHandler
 {
 
-	AppSensor appSensor = null;
+	Tracker tracker = null;
 
 	public AppSensorHandler(Activity activity, Handler handler)
 	{
 		super(activity, handler);
-		appSensor = new AppSensor(activity);
+		tracker = new Tracker(activity);
 	}
 
 	public void init()
 	{
-		appSensor.setOnTransferMessageListener(new TransferMessage()
+		tracker.setOnTransferMessageListener(new TransferMessage()
 		{
 
 			@Override
@@ -34,14 +34,14 @@ public class AppSensorHandler extends BaseHandler
 
 		});
 
-		appSensor.startTracker("1349333576093", "1001512501", "tester", "tester@hotmail.com");
+		tracker.startTracker("1349333576093", "1001512501", "tester", "tester@hotmail.com");
 	}
 
 	@Override
 	protected void finalize() throws Throwable
 	{
-		appSensor.stopTracker();
-		appSensor = null;
+		tracker.stopTracker();
+		tracker = null;
 		super.finalize();
 	}
 
@@ -56,7 +56,7 @@ public class AppSensorHandler extends BaseHandler
 		parm.put("DATE",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 		Logs.showTrace("track:" + type + " " + source_from + " " + page + " " + production + " " + price+
 				" "+parm.get("DATE"));
-		appSensor.track(parm);
+		tracker.track(parm);
 		
 		
 	}

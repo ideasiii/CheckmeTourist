@@ -16,7 +16,6 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import app.sensor.AppSensor;
 
 public class MissionHandler extends BaseHandler
 {

@@ -6,7 +6,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.os.Handler;
-import app.sensor.AppSensor;
+
 
 public class ApiResponseHandler extends BaseHandler
 {
@@ -95,8 +95,8 @@ public class ApiResponseHandler extends BaseHandler
 		try
 		{
 			JSONObject jsonobj = new JSONObject(strResponse);
-			int nError = jsonobj.getInt("error");
-			if(nError == 0)
+			nResult = jsonobj.getInt("error");
+			if(nResult == 0)
 			{
 				Global.mAccountId = jsonobj.getString("account_id");
 				

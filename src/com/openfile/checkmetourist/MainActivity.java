@@ -14,7 +14,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.KeyEvent;
 import android.webkit.WebView;
-import app.sensor.AppSensor;
 
 public class MainActivity extends Activity
 {
@@ -332,6 +331,7 @@ public class MainActivity extends Activity
 			//遇到無法處理的 回傳 網路問題
 			else
 			{
+				Logs.showTrace("result " + nResult);
 				DialogHandler.showNetworkError(this, true);
 			}
 			

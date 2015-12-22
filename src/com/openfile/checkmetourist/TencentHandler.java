@@ -18,7 +18,6 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
-import app.sensor.AppSensor;
 
 public class TencentHandler extends BaseHandler
 {
@@ -53,9 +52,9 @@ public class TencentHandler extends BaseHandler
 						try
 						{
 							Global.mAccountId = Global.qq_openid = values.getString("openid");
-							Global.qq_token = mQQAuth.getQQToken().toString();
+							
 							Logs.showTrace("QQ Open Id: " + Global.qq_openid);
-							Logs.showTrace("QQ Open token: " + Global.qq_token);
+							//Logs.showTrace("QQ Open token: " + Global.qq_token);
 							
 							TencentHandler.this.postMsg(MSG.QQ_LOGIN_COMPLETE, MSG.SUCCESS, 0, null);
 
@@ -175,6 +174,8 @@ public class TencentHandler extends BaseHandler
 				}
 			};
 			mInfo = new UserInfo(theActivity, mQQAuth.getQQToken());
+			Global.qq_token = mQQAuth.getQQToken().getAccessToken();
+			Logs.showTrace("qq_token"+Global.qq_token);//();
 			mInfo.getUserInfo(listener);
 		}
 		else
