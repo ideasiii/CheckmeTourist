@@ -428,6 +428,8 @@ public class CheckmeApi
 			{
 				jsonObject.put("identifier", Global.mAndroidSerial);
 				jsonObject.put("src", 1);  
+				jsonObject.put("auth_code", Code());
+				jsonObject.put("date",new SimpleDateFormat("yyyyMMdd HH:mm:ss").format(new Date()));
 				strResponse = use_http(URL_API_USER_LOGIN, jsonObject);
 			} 
 			catch (JSONException e)
