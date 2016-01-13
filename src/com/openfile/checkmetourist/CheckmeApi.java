@@ -3,6 +3,7 @@ package com.openfile.checkmetourist;
 import java.net.HttpURLConnection;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -18,46 +19,43 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
 
 public class CheckmeApi
 {
-	private Context			theContext				= null;
-	public final static int	API_SYSTEM_PRELOAD		= 0;
-	public final static int	API_INVITE				= 1;
-	public final static int	API_BANNER				= 2;
-	public final static int	API_GIFT				= 4;
-	public final static int	API_FIELD				= 5;
-	public final static int	API_INVOICE				= 6;
-	public final static int	API_COUPON				= 7;
-	
+	private Context			theContext			= null;
+	public final static int	API_SYSTEM_PRELOAD	= 0;
+	public final static int	API_INVITE			= 1;
+	public final static int	API_BANNER			= 2;
+	public final static int	API_GIFT			= 4;
+	public final static int	API_FIELD			= 5;
+	public final static int	API_INVOICE			= 6;
+	public final static int	API_COUPON			= 7;
+
 	public final static int	API_USER_REGIST			= 8;
 	public final static int	API_USER_LOGIN			= 9;
-	public final static int API_USER_FORGET_PASSWD  = 10;
-	public final static int API_QQ_USER_LOGIN       = 11;
-	public final static int API_USER_INFO           = 12;
-	
-	private final String	openlife_server			= "http://devapi.openlife.co";
+	public final static int	API_USER_FORGET_PASSWD	= 10;
+	public final static int	API_QQ_USER_LOGIN		= 11;
+	public final static int	API_USER_INFO			= 12;
+
+	private final String openlife_server = "http://devapi.openlife.co";
 	// private final String openlife_server = "https://web1.openlife.co";
 
-	public final String		URL_API_SYSTEM_PRELOAD	= openlife_server + "/cmapi/v1/system/preload";
-	public final String		URL_API_INVITE			= openlife_server + "/cmapi/v1/user/invite_code";
-	public final String		URL_API_BANNER			= openlife_server + "/cmapi/v1/promotion/list";
-	public final String		URL_API_GIFT			= openlife_server + "/cmapi/v1/gift/list";
-	public final String		URL_API_FIELD			= openlife_server + "/cmapi/v1/assign/list";
-	public final String		URL_API_INVOICE			= openlife_server + "/cmapi/v1/assign/commit_batch";
-	public final String		URL_API_COUPON			= openlife_server + "/cmapi/v1/user/redeem_record";
-	
-	
-	
-	public final String		URL_API_USER_REGIST		    = openlife_server + "/cmapi/v1/user/regist";
-	public final String		URL_API_USER_LOGIN		    = openlife_server + "/cmapi/v1/user/login";
-	public final String		URL_API_USER_FORGET_PASSWD	= openlife_server + "/cmapi/v1/user/passwd/forget";
-	public final String     URL_API_QQ_USER_LOGIN       = openlife_server + "/cmapi/v1/user/fb_login";
-	public final String     URL_API_USER_INFO           = openlife_server + "/cmapi/v1/user/info";
-	
+	public final String	URL_API_SYSTEM_PRELOAD	= openlife_server + "/cmapi/v1/system/preload";
+	public final String	URL_API_INVITE			= openlife_server + "/cmapi/v1/user/invite_code";
+	public final String	URL_API_BANNER			= openlife_server + "/cmapi/v1/promotion/list";
+	public final String	URL_API_GIFT			= openlife_server + "/cmapi/v1/gift/list";
+	public final String	URL_API_FIELD			= openlife_server + "/cmapi/v1/assign/list";
+	public final String	URL_API_INVOICE			= openlife_server + "/cmapi/v1/assign/commit_batch";
+	public final String	URL_API_COUPON			= openlife_server + "/cmapi/v1/user/redeem_record";
+
+	public final String	URL_API_USER_REGIST			= openlife_server + "/cmapi/v1/user/regist";
+	public final String	URL_API_USER_LOGIN			= openlife_server + "/cmapi/v1/user/login";
+	public final String	URL_API_USER_FORGET_PASSWD	= openlife_server + "/cmapi/v1/user/passwd/forget";
+	public final String	URL_API_QQ_USER_LOGIN		= openlife_server + "/cmapi/v1/user/fb_login";
+	public final String	URL_API_USER_INFO			= openlife_server + "/cmapi/v1/user/info";
+
 	public CheckmeApi(Context context)
 	{
 		theContext = context;
@@ -73,56 +71,56 @@ public class CheckmeApi
 
 	class sendPostRunnable implements Runnable
 	{
-		private int		nAPIIndex	= -1;
-		private Handler	theHandler	= null;
-		private String	strTaskId	= null;
-		private String	strQrCode	= null;
-		private JSONObject strData  = null;
+		private int			nAPIIndex	= -1;
+		private Handler		theHandler	= null;
+		private String		strTaskId	= null;
+		private String		strQrCode	= null;
+		private JSONObject	strData		= null;
 
 		@Override
 		public void run()
 		{
 			String strResponse = null;
-			switch (nAPIIndex)
+			switch(nAPIIndex)
 			{
-				case API_SYSTEM_PRELOAD:
-					strResponse = systemPreload();
-					break;
-				case API_INVITE:
-					strResponse = invite();
-					break;
-				case API_BANNER:
-					strResponse = banner();
-					break;
-				case API_GIFT:
-					strResponse = gift();
-					break;
-				case API_FIELD:
-					strResponse = field();
-					break;
-				case API_INVOICE:
-					strResponse = invoice(strTaskId, strQrCode);
-					break;
-				case API_COUPON:
-					strResponse = coupon();
-					break;
-				case API_USER_REGIST:
-					strResponse = userLoginAndRegist(strData,API_USER_REGIST);
-					break;
-				case API_USER_LOGIN:
-					strResponse = userLoginAndRegist(strData,API_USER_LOGIN);
-					break;
-				case API_USER_FORGET_PASSWD:
-					strResponse = userForgetPasswd(strData);
-					break;
-				case API_QQ_USER_LOGIN:
-					strResponse = qqUserLogin();
-					break;
-				case API_USER_INFO:
-					strResponse = userInfo();
-				default:
-						
-					break;
+			case API_SYSTEM_PRELOAD:
+				strResponse = systemPreload();
+				break;
+			case API_INVITE:
+				strResponse = invite();
+				break;
+			case API_BANNER:
+				strResponse = banner();
+				break;
+			case API_GIFT:
+				strResponse = gift();
+				break;
+			case API_FIELD:
+				strResponse = field();
+				break;
+			case API_INVOICE:
+				strResponse = invoice(strTaskId, strQrCode);
+				break;
+			case API_COUPON:
+				strResponse = coupon();
+				break;
+			case API_USER_REGIST:
+				strResponse = userLoginAndRegist(strData, API_USER_REGIST);
+				break;
+			case API_USER_LOGIN:
+				strResponse = userLoginAndRegist(strData, API_USER_LOGIN);
+				break;
+			case API_USER_FORGET_PASSWD:
+				strResponse = userForgetPasswd(strData);
+				break;
+			case API_QQ_USER_LOGIN:
+				strResponse = qqUserLogin();
+				break;
+			case API_USER_INFO:
+				strResponse = userInfo();
+			default:
+
+				break;
 			}
 
 			if (null != theHandler)
@@ -136,12 +134,14 @@ public class CheckmeApi
 			nAPIIndex = nAPI;
 			theHandler = handler;
 		}
+
 		public sendPostRunnable(final int nAPI, Handler handler, JSONObject data)
 		{
 			nAPIIndex = nAPI;
 			theHandler = handler;
 			strData = data;
 		}
+
 		public sendPostRunnable(final int nAPI, Handler handler, final String taskId, final String QrCode)
 		{
 			nAPIIndex = nAPI;
@@ -173,20 +173,19 @@ public class CheckmeApi
 		}
 		return false;
 	}
-	
-	
-	public boolean runApi(int nAPI,Handler handler,JSONObject memberData)
+
+	public boolean runApi(int nAPI, Handler handler, JSONObject memberData)
 	{
 		if (nAPI == API_USER_LOGIN || nAPI == API_USER_REGIST || nAPI == API_USER_FORGET_PASSWD)
-		{	
+		{
 			Thread t = new Thread(new sendPostRunnable(nAPI, handler, memberData));
 			t.start();
 			return true;
-		} 
-		
+		}
+
 		return false;
 	}
-	
+
 	public String userInfo()
 	{
 		String strResponse = null;
@@ -195,22 +194,21 @@ public class CheckmeApi
 			JSONObject jsonObject = new JSONObject();
 			jsonObject.put("account_id", Global.mAccountId);
 			jsonObject.put("identifier", Global.mAndroidSerial);
-			jsonObject.put("src",1);
-			jsonObject.put("status",1);
-			jsonObject.put("date",new SimpleDateFormat("yyyyMMdd HH:mm:ss").format(new Date()));
+			jsonObject.put("src", 1);
+			jsonObject.put("status", 1);
+			jsonObject.put("date", new SimpleDateFormat("yyyyMMdd HH:mm:ss", Locale.TAIWAN).format(new Date()));
 			jsonObject.put("auth_code", Code());
-			
+
 			strResponse = use_http(URL_API_USER_INFO, jsonObject);
 		}
 		catch (Exception e)
 		{
 			Logs.showTrace("Exception:" + e.getMessage());
 		}
-		
+
 		return strResponse;
-		
+
 	}
-	
 
 	public String systemPreload()
 	{
@@ -237,24 +235,22 @@ public class CheckmeApi
 		{
 			JSONObject jsonObject = new JSONObject();
 			Global.mAndroidSerial = Global.qq_openid;
-			jsonObject.put("fbuid",      Global.qq_openid);
-			jsonObject.put("fb_token",  Global.qq_token);
+			jsonObject.put("fbuid", Global.qq_openid);
+			jsonObject.put("fb_token", Global.qq_token);
 			jsonObject.put("identifier", Global.qq_openid);
-			jsonObject.put("src",1);
+			jsonObject.put("src", 1);
 			strResponse = use_http(URL_API_QQ_USER_LOGIN, jsonObject);
-			
+
 		}
 		catch (Exception e)
 		{
 			Logs.showTrace("Exception:" + e.getMessage());
 		}
-		
+
 		return strResponse;
-		
-		
-		
+
 	}
-	
+
 	public String invite()
 	{
 		String strResponse = null;
@@ -335,7 +331,6 @@ public class CheckmeApi
 		}
 		return strResponse;
 	}
-	
 
 	public String coupon()
 	{
@@ -397,6 +392,7 @@ public class CheckmeApi
 		}
 		return strResponse;
 	}
+
 	public String userForgetPasswd(JSONObject jsonObject)
 	{
 		String strResponse = null;
@@ -405,63 +401,61 @@ public class CheckmeApi
 		{
 			jsonObject.put("status", 1);
 			jsonObject.put("auth_code", Code());
-			jsonObject.put("date",new SimpleDateFormat("yyyyMMdd HH:mm:ss").format(new Date()));
+			jsonObject.put("date", new SimpleDateFormat("yyyyMMdd HH:mm:ss", Locale.TAIWAN).format(new Date()));
 			strResponse = use_http(URL_API_USER_FORGET_PASSWD, jsonObject);
-		} catch (JSONException e)
+		}
+		catch (JSONException e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
-		 
+		}
+
 		return strResponse;
 	}
-	
-	public String userLoginAndRegist(JSONObject jsonObject,int nfag)
+
+	public String userLoginAndRegist(JSONObject jsonObject, int nfag)
 	{
 		String strResponse = null;
-		
-		
-		if (nfag == API_USER_LOGIN )
+
+		if (nfag == API_USER_LOGIN)
 		{
 			Logs.showTrace("in API_USER_LOGIN");
 			try
 			{
 				jsonObject.put("identifier", Global.mAndroidSerial);
-				jsonObject.put("src", 1);  
+				jsonObject.put("src", 1);
 				strResponse = use_http(URL_API_USER_LOGIN, jsonObject);
-			} 
+			}
 			catch (JSONException e)
 			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-		} 
+
+		}
 		else if (nfag == API_USER_REGIST)
 		{
 			try
 			{
 				Logs.showTrace("in napi = API_USER_REGIST");
-				String date = new SimpleDateFormat("yyyyMMdd HH:mm:ss").format(new Date());
+				String date = new SimpleDateFormat("yyyyMMdd HH:mm:ss", Locale.TAIWAN).format(new Date());
 				Logs.showTrace("in napi = API_USER_REGIST2");
 				jsonObject.put("identifier", Global.mAndroidSerial);
-				jsonObject.put("src", 1); 
+				jsonObject.put("src", 1);
 				jsonObject.put("date", date);
 				jsonObject.put("status", 1);
 				jsonObject.put("auth_code", Code());
 				strResponse = use_http(URL_API_USER_REGIST, jsonObject);
-			} 
+			}
 			catch (JSONException e)
 			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}		
+			}
 		}
-		
-		return strResponse;	
+
+		return strResponse;
 	}
-	
-	
 
 	public String use_http(String url, JSONObject jsonObject)
 	{

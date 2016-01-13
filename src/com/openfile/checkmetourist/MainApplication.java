@@ -25,7 +25,7 @@ public class MainApplication extends Application
 	{
 		checkmeApi = new CheckmeApi(activity);
 		checkmeDB = new SqliteHandler(activity);
-		//initAndroidSerial(activity);
+		// initAndroidSerial(activity);
 		imageLoader = new ImageLoaderHandler(activity);
 		imageLoader.init();
 		appSensor = new AppSensorHandler(activity, null);
@@ -58,6 +58,7 @@ public class MainApplication extends Application
 		System.exit(0);
 	}
 
+	@SuppressWarnings("unused")
 	private void initAndroidSerial(Context context)
 	{
 		Global.mAndroidSerial = Build.SERIAL;

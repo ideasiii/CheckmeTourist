@@ -1,11 +1,8 @@
 package com.openfile.checkmetourist;
 
 import org.json.JSONObject;
-
 import com.openfile.checkmetourist.ListGiftHandler.GiftData;
 import com.openfile.checkmetourist.MissionHandler.MissionData;
-import com.zbar.lib.CaptureActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -34,7 +31,7 @@ public class MainActivity extends Activity
 	private GiftExchangeHandler	giftExchangeHandler	= null;
 	private AboutHandler		aboutHandler		= null;
 	private AccountHandler		accountHandler		= null;
-				//騰訊
+	// 騰訊
 	private TencentHandler		tencentHandler		= null;
 	private PointHistoryHandler	pointHistoryHandler	= null;
 
@@ -171,25 +168,24 @@ public class MainActivity extends Activity
 		this.getActionBar().show();
 		actionbarHandler.setPoint(Global.mPoint);
 	}
-	
-	private void setMemberProgram(JSONObject memberData,int nfag)
+
+	private void setMemberProgram(JSONObject memberData, int nfag)
 	{
-		
-		theApplication.checkmeApi.runApi(nfag, theHandler,memberData);
- 
+
+		theApplication.checkmeApi.runApi(nfag, theHandler, memberData);
+
 	}
+
 	private void setQQMemberProgram()
 	{
 		theApplication.checkmeApi.runApi(CheckmeApi.API_QQ_USER_LOGIN, theHandler);
 	}
-	
+
 	private void setMemberInfoData()
 	{
 		theApplication.checkmeApi.runApi(CheckmeApi.API_USER_INFO, theHandler);
-		
+
 	}
-	
-	
 
 	private void showMissionView(final String strChannelId)
 	{
@@ -286,59 +282,61 @@ public class MainActivity extends Activity
 			break;
 		}
 	}
-// need to add
+
+	// need to add
 	private void apiResponseFinish(final int nApiType, final int nResult)
 	{
 		if (MSG.RESULT_SUCCESS != nResult)
 		{
-			
-			//以下為 login 錯誤 處理response error 事件
-			//密碼錯誤
+
+			// 以下為 login 錯誤 處理response error 事件
+			// 密碼錯誤
 			if (nResult == 5104)
 			{
 				Logs.showTrace("密碼錯誤 5104");
-				DialogHandler.showAlert(this, this.getString(R.string.password_error)+"\n"+
-			this.getString(R.string.input_password_again), false);
+				DialogHandler.showAlert(this,
+						this.getString(R.string.password_error) + "\n" + this.getString(R.string.input_password_again),
+						false);
 
 			}
-			//未註冊
+			// 未註冊
 			else if (nResult == 5101)
 			{
 				Logs.showTrace("未註冊 5101");
 				DialogHandler.showAlert(this, this.getString(R.string.unregister_account), false);
-				
+
 			}
-			//不同的手機進行登入  identifier 不一樣
+			// 不同的手機進行登入 identifier 不一樣
 			else if (nResult == 5103)
 			{
 				DialogHandler.showAlert(this, this.getString(R.string.login_fail), false);
-	
+
 			}
-			//以下為register 錯誤 處理  response error 事件
-			//重複性的帳號
+			// 以下為register 錯誤 處理 response error 事件
+			// 重複性的帳號
 			else if (nResult == 5123)
 			{
 				Logs.showTrace("重複性的帳號  5123");
 				DialogHandler.showAlert(this, this.getString(R.string.repeat_regist_account), false);
-				
+
 			}
-			//當user_status <0 時 此帳戶已被停權
-			else if(nResult == -1111)
+			// 當user_status <0 時 此帳戶已被停權
+			else if (nResult == -1111)
 			{
 				Logs.showTrace("帳號  已被停權");
 				DialogHandler.showAlert(this, this.getString(R.string.suspended_account), false);
 			}
-			//遇到無法處理的 回傳 網路問題
+			// 遇到無法處理的 回傳 網路問題
 			else
 			{
 				Logs.showTrace("result " + nResult);
 				DialogHandler.showNetworkError(this, true);
 			}
-			
+
 			return;
 		}
 		Logs.showTrace("type " + nApiType);
-		switch (nApiType)
+		switch(nApiType)
 		{
 		case CheckmeApi.API_SYSTEM_PRELOAD:
 			setLoginView();
@@ -358,12 +356,12 @@ public class MainActivity extends Activity
 		case CheckmeApi.API_USER_LOGIN:
 			Logs.showTrace("done to login");
 			setMemberInfoData();
-			//setInviteView();
+			// setInviteView();
 			break;
 		case CheckmeApi.API_USER_REGIST:
 			Logs.showTrace("done to register");
 			loginHandler.flipperViewClose();
-			
+
 			break;
 		case CheckmeApi.API_USER_FORGET_PASSWD:
 			Logs.showTrace("done to forget password");
@@ -373,7 +371,7 @@ public class MainActivity extends Activity
 		case CheckmeApi.API_QQ_USER_LOGIN:
 			Logs.showTrace("done to use QQ login");
 			setMemberInfoData();
-			//setInviteView();
+			// setInviteView();
 			break;
 		case CheckmeApi.API_USER_INFO:
 			setInviteView();
@@ -484,7 +482,7 @@ public class MainActivity extends Activity
 			case MSG.QQ_LOGIN_COMPLETE:
 				if (MSG.SUCCESS == msg.arg1)
 				{
-					//setInviteView();
+					// setInviteView();
 					setQQMemberProgram();
 				}
 				else
@@ -493,25 +491,25 @@ public class MainActivity extends Activity
 				}
 				break;
 			case MSG.MEMBER_LOGIN:
-				
-				setMemberProgram((JSONObject)msg.obj, CheckmeApi.API_USER_LOGIN);
+
+				setMemberProgram((JSONObject) msg.obj, CheckmeApi.API_USER_LOGIN);
 
 				break;
 			case MSG.MEMBER_REGISTER:
-				
-				setMemberProgram((JSONObject)msg.obj,CheckmeApi.API_USER_REGIST);
-				
+
+				setMemberProgram((JSONObject) msg.obj, CheckmeApi.API_USER_REGIST);
+
 				break;
 			case MSG.MEMBER_FORGET_PASSWD:
-				setMemberProgram((JSONObject)msg.obj,CheckmeApi.API_USER_FORGET_PASSWD);
-				
+				setMemberProgram((JSONObject) msg.obj, CheckmeApi.API_USER_FORGET_PASSWD);
+
 			case MSG.DIALOG_CLICKED:
 				if (MSG.ID_LEAVE == msg.arg1)
 				{
 					theApplication.Terminate();
 				}
 				break;
-			
+
 			}
 		}
 	};
