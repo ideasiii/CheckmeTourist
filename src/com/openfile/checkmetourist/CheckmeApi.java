@@ -423,18 +423,14 @@ public class CheckmeApi
 			try
 			{
 				jsonObject.put("identifier", Global.mAndroidSerial);
-<<<<<<< HEAD
-				jsonObject.put("src", 1);
-=======
 				jsonObject.put("src", 1);  
 				jsonObject.put("auth_code", Code());
 				jsonObject.put("date",new SimpleDateFormat("yyyyMMdd HH:mm:ss").format(new Date()));
->>>>>>> 7dcab12bcf42d1c155f1974267be6772726dcc2d
+
 				strResponse = use_http(URL_API_USER_LOGIN, jsonObject);
 			}
 			catch (JSONException e)
 			{
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 

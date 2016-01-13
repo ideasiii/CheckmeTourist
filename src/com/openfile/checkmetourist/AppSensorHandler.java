@@ -25,10 +25,6 @@ public class AppSensorHandler extends BaseHandler
 			@Override
 			public void showLinkServerMessageResult(int result, int from, String message)
 			{
-<<<<<<< HEAD
-=======
-				// TODO Auto-generated method stub
->>>>>>> 7dcab12bcf42d1c155f1974267be6772726dcc2d
 				Logs.showTrace(
 						"result :" + String.valueOf(result) + "from :" + String.valueOf(from) + " message: " + message);
 			}
@@ -56,12 +52,9 @@ public class AppSensorHandler extends BaseHandler
 		parm.put("PAGE", page);
 		parm.put("PRODUCTION", production);
 		parm.put("PRICE", price);
-<<<<<<< HEAD
+
 		Logs.showTrace("track:" + type + " " + source_from + " " + page + " " + production + " " + price);
-=======
-		Logs.showTrace("track:" + type + " " + source_from + " " + page + " " + production + " " + price + " "
-				+ parm.get("DATE"));
->>>>>>> 7dcab12bcf42d1c155f1974267be6772726dcc2d
+
 		tracker.track(parm);
 
 	}
